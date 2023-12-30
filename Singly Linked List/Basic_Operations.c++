@@ -24,6 +24,7 @@ struct Node{
 //Traversing the L.L.
 void Traversal(Node* &head){
     Node* current = head;
+    cout<<"Your Linked List: ";
     while (current != NULL){
         cout<<current->data<<" ";
         current = current->next;
@@ -104,18 +105,68 @@ void deleteAtPosition(Node* &head, int position){
     }
 }
 
+//Search element in L.L
+bool searchKey(Node* &head, int key){
+    Node* current_node = head;
+    while(current_node != NULL){
+        if (current_node->data == key) return true;
+        else current_node = current_node->next;
+    }
+
+    return false;
+}
+
+//Length of L.L.
+int length(Node* &head){
+    Node* current_node = head;
+    int counter = 0;
+    while (current_node != NULL){
+        counter++;
+        current_node = current_node->next;
+    }
+
+    return counter;
+}
+
+Node* array_to_LL(vector<int> &arr){
+    Node* head = new Node(arr[0]);
+    int index = 1; //Updated b/c first element is inserted in Linked List
+
+    for (index; index < arr.size(); index++){
+        insertAtEnd(head, arr[index]);
+    }
+    return head;
+}
+
+
+
 int main() {
-    Node* head = new Node(10);
-    insertAtPosition(head, 2, 11);
-    insertAtPosition(head, 3, 12);
-    insertAtPosition(head, 4, 13);
-    insertAtPosition(head, 5, 14);
-    insertAtPosition(head, 6, 15);
-    insertAtPosition(head, 7, 16);
+    vector<int> arr = {11,12,13,14,15,16,17,18};
+
+    Node* head = array_to_LL(arr);
 
     Traversal(head);
-    deleteAtPosition(head, 7);
+
+    cout<<"Current Length of this Linked List is: "<<length(head)<<endl;
+
+    int del_pos;
+    cout<<"Enter the position for deletion of node: ";
+    cin>>del_pos;
+    deleteAtPosition(head, del_pos);
+
     Traversal(head);
+
+    cout<<"Current Length of this Linked List is: "<<length(head)<<endl;
+
+    int key;
+    cout<<"Enter the integer to be searched: ";
+    cin>>key;
+    if (searchKey(head, key)){
+        cout<<key<<" is present"<<endl;
+    }
+    else{
+        cout<<key<<" is absent"<<endl;
+    }
 
     return 0;
 }
