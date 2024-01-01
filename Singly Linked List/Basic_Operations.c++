@@ -30,10 +30,18 @@ void Traversal(Node* &head){
         current = current->next;
     }
     cout<<endl;
+    cout<<"Current Head: "<<head->data<<endl;
+}
+
+//Inserting the element in a empty L.L. or when head is pointing to NULL
+Node* startLL(int data){
+    Node* head = new Node(data);
+    return head;
 }
 
 //Inserting the element at start of L.L.
 void insertAtHead(Node* &head, int data){
+    //This code will handle the cases where the L.L. is empty, or when the head is pointing to NULL
     Node* new_node = new Node(data);
     new_node->next = head;
     head = new_node;
@@ -41,16 +49,28 @@ void insertAtHead(Node* &head, int data){
 
 //Inserting the element at end of L.L.
 void insertAtEnd(Node* &head, int data){
+    //If L.L. is empty
+    if (head == NULL){
+        head = startLL(data);
+        return;
+    }
     Node* new_node = new Node(data);
     Node* current_node = head;
-    while(current_node->next != NULL){
+    while (current_node->next != NULL){
         current_node = current_node->next;
     }
+    //Now we have reached to last node
     current_node->next = new_node;
 }
 
 //Inserting the element at given position in L.L.
 void insertAtPosition(Node* &head, int position, int data){
+    //If L.L. is empty 
+    if (head == NULL){
+        head = startLL(data);
+        return;
+    }
+
     //For insertion at head
     if (position == 1){
         insertAtHead(head, data);
